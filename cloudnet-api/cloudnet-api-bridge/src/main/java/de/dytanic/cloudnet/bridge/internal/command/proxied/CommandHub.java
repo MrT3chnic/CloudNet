@@ -57,8 +57,7 @@ public final class CommandHub extends Command {
 
         ProxyServer.getInstance().getPluginManager().callEvent(proxiedPlayerFallbackEvent);
 
-        if(fallback == null) commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    CloudAPI.getInstance().getCloudNetwork().getMessages().getString("hubCommandNoServerFound")));
+        if(fallback == null) commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', CloudAPI.getInstance().getCloudNetwork().getMessages().getString("hubCommandNoServerFound")));
         else ((ProxiedPlayer) commandSender).connect(ProxyServer.getInstance().getServerInfo(fallback));
     }
 }

@@ -58,8 +58,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                     for (short i = 2; i < args.length; i++) builder.append(args[i]).append(" ");
 
                     CloudAPI.getInstance().sendConsoleMessage(DefaultType.BUKKIT, args[1], builder.substring(0, builder.length() - 1));
-                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                            "The information was sent to the cloud");
+                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     return;
                 }
             }
@@ -70,7 +69,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                 for (short i = 2; i < args.length; i++) builder.append(args[i]).append(" ");
 
                 CloudAPI.getInstance().sendConsoleMessage(DefaultType.BUNGEE_CORD, args[1], builder.substring(0, builder.length() - 1));
-                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The information was sent to the cloud");
+                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                 return;
             }
         }
@@ -116,8 +115,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                 if (args[0].equalsIgnoreCase("rl") && commandSender.hasPermission("cloudnet.command.cloud.reload"))
                 {
                     CloudAPI.getInstance().sendCloudCommand("reload all");
-                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                            "The information was sent to the cloud");
+                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     return;
                 }
                 if (args[0].equalsIgnoreCase("statistics") && commandSender.hasPermission("cloudnet.ommand.cloud.statistics"))
@@ -139,8 +137,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                 if (args[0].equalsIgnoreCase("rlconfig") && commandSender.hasPermission("cloudnet.command.cloud.reloadconfig"))
                 {
                     CloudAPI.getInstance().sendCloudCommand("reload config");
-                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                            "The information was sent to the cloud");
+                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     return;
                 }
                 if (args[0].equalsIgnoreCase("list") && commandSender.hasPermission("cloudnet.command.cloud.list"))
@@ -228,7 +225,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                                 proxyGroup.getProxyConfig().setAutoSlot(new AutoSlot(proxyGroup.getProxyConfig().getAutoSlot().getDynamicSlotSize(),
                                         !proxyGroup.getProxyConfig().getAutoSlot().isEnabled()));
                                 CloudAPI.getInstance().updateProxyGroup(proxyGroup);
-                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The autoslot state was updated.");
+                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("autoslot-state"));
                             }
                         }
                         return;
@@ -239,7 +236,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                                 ProxyGroup proxyGroup = CloudProxy.getInstance().getProxyGroup();
                                 proxyGroup.getProxyConfig().setMaintenance(!proxyGroup.getProxyConfig().isMaintenance());
                                 CloudAPI.getInstance().updateProxyGroup(proxyGroup);
-                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The maintenance state was updated.");
+                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("maintenance-state"));
                             }
                             return;
                         }
@@ -260,11 +257,11 @@ public final class CommandCloud extends Command implements TabExecutor {
                         String url = CloudAPI.getInstance().createServerLogUrl(args[1]);
                         TextComponent textComponent = new TextComponent(TextComponent.fromLegacyText("§n§l§b" + url));
                         textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
-                        commandSender.sendMessage(new TextComponent(TextComponent.fromLegacyText(CloudAPI.getInstance().getPrefix() + "You can review the log at: ")), textComponent);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The log is dynamic and will be deleted on 10 minutes");
+                        commandSender.sendMessage(new TextComponent(TextComponent.fromLegacyText(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("log-see" + textComponent))));
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("log-delete"));
                     } else
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The server doesn't exist.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-no-exist"));
                     }
                     return;
                 }
@@ -275,10 +272,10 @@ public final class CommandCloud extends Command implements TabExecutor {
                         ProxyGroup proxyGroup = CloudProxy.getInstance().getProxyGroup();
                         proxyGroup.getProxyConfig().setMaxPlayers(Integer.parseInt(args[1]));
                         CloudAPI.getInstance().updateProxyGroup(proxyGroup);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The maximum onlinecount was updated.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("setmaxplayer"));
                     } else
                     {
-                        commandSender.sendMessage("§7The second argument is not a number.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("setmaxplayerfail"));
                     }
                     return;
                 }
@@ -287,16 +284,14 @@ public final class CommandCloud extends Command implements TabExecutor {
                     if (CloudAPI.getInstance().getCloudNetwork().getServerGroups().containsKey(args[1]))
                     {
                         CloudAPI.getInstance().startGameServer(CloudAPI.getInstance().getServerGroupData(args[1]), new ServerConfig(false, "extra", new Document(), System.currentTimeMillis()), true);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else if (CloudAPI.getInstance().getCloudNetwork().getProxyGroups().containsKey(args[1]))
                     {
                         CloudAPI.getInstance().startProxy(CloudAPI.getInstance().getProxyGroupData(args[1]));
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                     }
                     return;
                 }
@@ -307,11 +302,10 @@ public final class CommandCloud extends Command implements TabExecutor {
                         ServerGroup serverGroup = CloudAPI.getInstance().getServerGroup(args[1]);
                         serverGroup.setMaintenance(!serverGroup.isMaintenance());
                         CloudAPI.getInstance().updateServerGroup(serverGroup);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                     }
                     return;
                 }
@@ -320,8 +314,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                     if (CloudProxy.getInstance().getCachedServers().containsKey(args[1]))
                     {
                         CloudAPI.getInstance().stopServer(args[1]);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else if (CollectionWrapper.filter(CloudAPI.getInstance().getProxys(), new Acceptable<ProxyInfo>() {
                         @Override
                         public boolean isAccepted(ProxyInfo proxyInfo)
@@ -331,8 +324,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                     }) != null)
                     {
                         CloudAPI.getInstance().stopProxy(args[1]);
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else
                     {
                         commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The specified server isn't online.");
@@ -348,8 +340,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                         for (String server : servers)
                             CloudAPI.getInstance().stopServer(server);
 
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         return;
                     }
 
@@ -361,8 +352,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                             if (proxyInfo.getServiceId().getGroup().equalsIgnoreCase(args[1]))
                                 CloudAPI.getInstance().stopProxy(proxyInfo.getServiceId().getServerId());
 
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         return;
                     }
 
@@ -385,8 +375,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                             if (server.getOnlineCount() == 0)
                                 CloudAPI.getInstance().stopServer(server.getServiceId().getServerId());
 
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         return;
                     }
 
@@ -398,8 +387,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                             if (proxyInfo.getServiceId().getGroup().equalsIgnoreCase(args[1]) && proxyInfo.getOnlineCount() == 0)
                                 CloudAPI.getInstance().stopProxy(proxyInfo.getServiceId().getServerId());
 
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         return;
                     }
 
@@ -408,8 +396,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                 if (args[0].equalsIgnoreCase("copy") && commandSender.hasPermission("cloudnet.command.cloud.copy"))
                 {
                     CloudAPI.getInstance().sendCloudCommand("copy " + args[1]);
-                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                            "The information was sent to the cloud");
+                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     return;
                 }
                 break;
@@ -418,13 +405,13 @@ public final class CommandCloud extends Command implements TabExecutor {
                 {
                     if(!CloudProxy.getInstance().getCachedServers().containsKey(args[1]))
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The server doesn't exists");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-no-exist"));
                         return;
                     }
 
                     CloudAPI.getInstance().copyDirectory(CloudProxy.getInstance().getCachedServers().get(args[1]),
                             args[2]);
-                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The wrapper tried to copy the directory...");
+                    commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("wrapper-copy-directory"));
 
                     return;
                 }
@@ -444,7 +431,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                                         ProxyGroup proxyGroup = CloudProxy.getInstance().getProxyGroup();
                                         proxyGroup.getProxyConfig().setMaintenance(!proxyGroup.getProxyConfig().isMaintenance());
                                         CloudAPI.getInstance().updateProxyGroup(proxyGroup);
-                                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The maintenance state was updated.");
+                                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("maintenance-state"));
                                     }
                                 }, Integer.parseInt(args[2]), TimeUnit.SECONDS);
                                 commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The maintenance will be changed in " + args[2] + " seconds");
@@ -464,8 +451,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                             {
                                 CloudAPI.getInstance().startGameServer(CloudAPI.getInstance().getServerGroupData(args[1]), new ServerConfig(false, "extra", new Document(), System.currentTimeMillis()), true);
                             }
-                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                    "The information was sent to the cloud");
+                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         } else
                         {
                             ServerGroup serverGroup = CloudAPI.getInstance().getServerGroup(args[1]);
@@ -484,8 +470,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                                         return value.getName().equalsIgnoreCase(args[2]);
                                     }
                                 }));
-                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                        "The information was sent to the cloud");
+                                commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                             }
                         }
                     } else if (CloudAPI.getInstance().getProxyGroupMap().containsKey(args[1]))
@@ -496,17 +481,15 @@ public final class CommandCloud extends Command implements TabExecutor {
                             {
                                 CloudAPI.getInstance().startProxy(CloudAPI.getInstance().getProxyGroupData(args[1]));
                             }
-                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                    "The information was sent to the cloud");
+                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         } else
                         {
                             CloudAPI.getInstance().startProxy(CloudAPI.getInstance().getProxyGroupData(args[1]));
-                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                    "The information was sent to the cloud");
+                            commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                         }
                     } else
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist.");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                     }
                 } else if (args[0].equalsIgnoreCase("whitelist") && commandSender.hasPermission("cloudnet.command.cloud.whitelist"))
                 {
@@ -536,8 +519,7 @@ public final class CommandCloud extends Command implements TabExecutor {
                     if (NetworkUtils.checkIsNumber(args[2]) && Integer.parseInt(args[2]) > 128)
                     {
                         CloudAPI.getInstance().startCloudServer(args[1], Integer.parseInt(args[2]), args[3].equalsIgnoreCase("true"));
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() +
-                                "The information was sent to the cloud");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("information-sent"));
                     } else
                     {
                         commandSender.sendMessage("Invalid arguments!");

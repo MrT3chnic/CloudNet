@@ -77,26 +77,26 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                 {
                     if (!CloudAPI.getInstance().getServerGroupMap().containsKey(args[1]))
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                         return;
                     }
                     ServerConfig serverConfig = new ServerConfig(true, commandSender.getName(), new Document(NetworkUtils.DEV_PROPERTY, new DevService(((
                             ProxiedPlayer
                             ) commandSender).getUniqueId(), true)), System.currentTimeMillis());
                     CloudAPI.getInstance().startGameServer(CloudAPI.getInstance().getServerGroupData(args[1]), serverConfig, "Dev" + args[1] + "-" + commandSender.getName());
-                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + "The server will start up now...");
+                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-startup"));
                     return;
                 }
                 if (args[0].equalsIgnoreCase("testServer"))
                 {
                     if (!CloudAPI.getInstance().getServerGroupMap().containsKey(args[1]))
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                         return;
                     }
                     ServerConfig serverConfig = new ServerConfig(true, commandSender.getName(), new Document(), System.currentTimeMillis());
                     CloudAPI.getInstance().startCloudServer("TestServer-" + ((ProxiedPlayer) commandSender).getUniqueId(), serverConfig, 356, true);
-                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + "The server will start up now...");
+                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-startup"));
                     return;
                 }
             }
@@ -118,7 +118,7 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                 {
                     if (!CloudAPI.getInstance().getServerGroupMap().containsKey(args[1]))
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                         return;
                     }
 
@@ -131,7 +131,7 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                         }
                     }) == null)
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The template doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("template-no-exist"));
                         return;
                     }
 
@@ -146,14 +146,14 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                                     return e.getName().equalsIgnoreCase(args[2]);
                                 }
                             }), "Dev" + args[1] + "-" + commandSender.getName());
-                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + "The server will start up now...");
+                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-startup"));
                     return;
                 }
                 if (args[0].equalsIgnoreCase("testServer"))
                 {
                     if (!CloudAPI.getInstance().getServerGroupMap().containsKey(args[1]))
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The group doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("group-no-exist"));
                         return;
                     }
 
@@ -166,7 +166,7 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                         }
                     }) == null)
                     {
-                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + "The template doesn't exist");
+                        commandSender.sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("template-no-exist"));
                         return;
                     }
                     ServerConfig serverConfig = new ServerConfig(true, commandSender.getName(), new Document(), System.currentTimeMillis());
@@ -178,7 +178,7 @@ public final class CommandCloudDev extends Command implements TabExecutor {
                             , "Dev" + args[1] + "-" + commandSender.getName());
                     */
                     CloudAPI.getInstance().startCloudServer("TestServer-" + ((ProxiedPlayer) commandSender).getUniqueId(), serverConfig, 356, true);
-                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + "The server will start up now...");
+                    ((ProxiedPlayer) commandSender).sendMessage(CloudAPI.getInstance().getPrefix() + CloudAPI.getInstance().getCloudNetwork().getMessages().getString("server-startup"));
                     return;
                 }
             }
